@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>MailSender.lib.key.snk</AssemblyOriginatorKeyFile>
+    <Version>0.0.1</Version>
+  </PropertyGroup>
+
+</Project>
