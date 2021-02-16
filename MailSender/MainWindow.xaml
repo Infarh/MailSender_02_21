@@ -258,7 +258,33 @@
                     <GridSplitter Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="3" Background="Transparent"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Письма"></TabItem>
+            <TabItem Header="Письма">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Grid.Column="0" Header="Письма">
+                        <ListBox MinWidth="120" ItemsSource="{x:Static data:TestData.Messages}"
+                                 DisplayMemberPath="Title"
+                                 Name="MessagesList"/>
+                    </GroupBox>
+                    <GroupBox Grid.Column="1" Header="Редактор">
+                        <DockPanel >
+                            <!-- DataContext="{Binding SelectedItem, ElementName=MessagesList}" -->
+                            <GroupBox DockPanel.Dock="Top" Header="Заголовок">
+                                <!--<TextBox Text="{Binding Title}"/>-->
+                                <TextBox Text="{Binding SelectedItem.Title, ElementName=MessagesList}"/>
+                            </GroupBox>
+                            <GroupBox Header="Текст письма">
+                                <!--<TextBox AcceptsReturn="True" AcceptsTab="True" Text="{Binding Text}"/>-->
+                                <TextBox AcceptsReturn="True" AcceptsTab="True" Text="{Binding SelectedItem.Text, ElementName=MessagesList}"/>
+                                <!--<RichTextBox/>-->
+                            </GroupBox>
+                        </DockPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
             <TabItem Header="Статистика"></TabItem>
         </TabControl>
     </DockPanel>
