@@ -24,7 +24,50 @@
             <StatusBarItem Content="Готов к труду и обороне!"/>
         </StatusBar>
         <TabControl>
-            <TabItem Header="Списки"></TabItem>
+            <TabItem Header="Списки">
+                <DockPanel>
+                    <ToolBarTray DockPanel.Dock="Top">
+                        <ToolBar Header="Сервера">
+                            <ComboBox Margin="26,0,0,0" MinWidth="120" MaxWidth="200" SelectedIndex="0">
+                                <ComboBoxItem>smtp.yandex.ru:465</ComboBoxItem>
+                                <ComboBoxItem>smtp.mail.ru:465</ComboBoxItem>
+                                <ComboBoxItem>smtp.gmail.com:587</ComboBoxItem>
+                            </ComboBox>
+                            <Button>Добавить</Button>
+                            <Button>Редактировать</Button>
+                            <Button>Убавить</Button>
+                        </ToolBar>
+                        <ToolBar Header="Отправители" Band="1" BandIndex="0">
+                            <ComboBox MinWidth="120" MaxWidth="200" SelectedIndex="0">
+                                <ComboBoxItem>ivanov@ya.ru</ComboBoxItem>
+                                <ComboBoxItem>petrov@mail.ru</ComboBoxItem>
+                                <ComboBoxItem>sidorov@gmail.com</ComboBoxItem>
+                            </ComboBox>
+                            <Button>Добавить</Button>
+                            <Button>Редактировать</Button>
+                            <Button>Убавить</Button>
+                        </ToolBar>
+                        <ToolBar>
+                            <TextBlock Text="Перейти в планировщик" VerticalAlignment="Center"/>
+                            <Button>(Перейти)</Button>
+                        </ToolBar>
+                        <ToolBar Band="1" Header="Получатели">
+                            <Button Content="Создать"/>
+                            <Button Content="Редактировать"/>
+                            <Button Content="Удалить"/>
+                        </ToolBar>
+                    </ToolBarTray>
+                    <GroupBox Header="Список получателей" Margin="3">
+                        <DataGrid AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" MinWidth="30"/>
+                                <DataGridTextColumn Header="Имя" Width="*"/>
+                                <DataGridTextColumn Header="Адрес" MinWidth="120"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </DockPanel>
+            </TabItem>
             <TabItem Header="Планировщик"></TabItem>
             <TabItem Header="Письма"></TabItem>
             <TabItem Header="Статистика"></TabItem>
