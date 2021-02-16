@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSender", "MailSender\MailSender.csproj", "{D68D3322-9FCB-4510-9B97-CCCE3647187B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailSender", "MailSender\MailSender.csproj", "{D68D3322-9FCB-4510-9B97-CCCE3647187B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8CAD62E9-D5FE-457F-8EE3-FE3CF457F165}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "Tests\TestConsole\TestConsole.csproj", "{9AFA9005-2CED-4BB4-AD47-8D8E18888B88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsole", "Tests\TestConsole\TestConsole.csproj", "{9AFA9005-2CED-4BB4-AD47-8D8E18888B88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWPF", "Tests\TestWPF\TestWPF.csproj", "{8676479B-6CBA-4FDA-8674-23B6216A7B72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestWPF", "Tests\TestWPF\TestWPF.csproj", "{8676479B-6CBA-4FDA-8674-23B6216A7B72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSender.lib", "MailSender.lib\MailSender.lib.csproj", "{566D6416-A08F-47A6-9D18-BC0ECF4C3C30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{8676479B-6CBA-4FDA-8674-23B6216A7B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8676479B-6CBA-4FDA-8674-23B6216A7B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8676479B-6CBA-4FDA-8674-23B6216A7B72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{566D6416-A08F-47A6-9D18-BC0ECF4C3C30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{566D6416-A08F-47A6-9D18-BC0ECF4C3C30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{566D6416-A08F-47A6-9D18-BC0ECF4C3C30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{566D6416-A08F-47A6-9D18-BC0ECF4C3C30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
