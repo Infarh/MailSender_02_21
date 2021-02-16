@@ -33,9 +33,18 @@
                                 <ComboBoxItem>smtp.mail.ru:465</ComboBoxItem>
                                 <ComboBoxItem>smtp.gmail.com:587</ComboBoxItem>
                             </ComboBox>
-                            <Button>Добавить</Button>
-                            <Button>Редактировать</Button>
-                            <Button>Убавить</Button>
+                            <Button>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="Media/add.png" Height="16" Margin="0,0,5,0"/>
+                                    <TextBlock Text="Добавить" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <Button ToolTip="Редактировать">
+                                <Image Source="Media/edit.png" Height="16" Margin="0,0,5,0"/>
+                            </Button>
+                            <Button ToolTip="Удалить">
+                                <Image Source="Media/remove.png" Height="16" Margin="0,0,5,0"/>
+                            </Button>
                         </ToolBar>
                         <ToolBar Header="Отправители" Band="1" BandIndex="0">
                             <ComboBox MinWidth="120" MaxWidth="200" SelectedIndex="0">
