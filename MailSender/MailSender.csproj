@@ -15,6 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FontAwesome5" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Media\add.png" />
     <Resource Include="Media\clock.png" />
     <Resource Include="Media\edit.png" />
