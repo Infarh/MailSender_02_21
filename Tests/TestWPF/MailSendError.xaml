@@ -1,0 +1,14 @@
+﻿<Window x:Class="TestWPF.MailSendError"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestWPF"
+        mc:Ignorable="d"
+        Title="Ошибка" Height="143" Width="243">
+    <Grid>
+        <Label x:Name="labelErrorText" Content="" HorizontalAlignment="Center" Height="36" Margin="0,10,0,0" VerticalAlignment="Top" Width="177" FontSize="10"/>
+        <Button x:Name="buttonCloseError" Content="OK" HorizontalAlignment="Center" Margin="0,76,0,0" VerticalAlignment="Top" Width="51" Click="buttonCloseError_Click"/>
+
+    </Grid>
+</Window>

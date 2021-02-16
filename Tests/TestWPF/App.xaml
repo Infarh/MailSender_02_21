@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:TestWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="Theme.xaml"/>
     </Application.Resources>
 </Application>
