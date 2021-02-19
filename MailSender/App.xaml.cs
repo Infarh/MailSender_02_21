@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using MailSender.Infrastructure;
 using MailSender.Infrastructure.Services;
 using MailSender.lib.Interfaces;
