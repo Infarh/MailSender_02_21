@@ -90,7 +90,7 @@
                         </ToolBar>
                         <ToolBar Band="2">
                             <contr:ItemsPanel Title="{Binding Text, ElementName=Test}"/>
-                            <TextBox Name="Test" Text="123"/>
+                            <TextBox Name="Test" Text="ewq"/>
                         </ToolBar>
                     </ToolBarTray>
                     <GroupBox Header="Список получателей" Margin="3">

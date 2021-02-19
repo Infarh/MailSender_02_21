@@ -7,10 +7,10 @@
              xmlns:data="clr-namespace:MailSender.Data"
              xmlns:models="clr-namespace:MailSender.Models"
              xmlns:fa="http://schemas.fontawesome.com/icons/"
-             Height="27" Width="400"
-             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+             Height="27" Width="400">
     <DockPanel>
-        <TextBlock Text="{Binding Title}" VerticalAlignment="Center" Margin="3,0"/>
+        <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=l:ItemsPanel}}"
+                   VerticalAlignment="Center" Margin="3,0"/>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
             <StackPanel.Resources>
                 <Style TargetType="Button">
