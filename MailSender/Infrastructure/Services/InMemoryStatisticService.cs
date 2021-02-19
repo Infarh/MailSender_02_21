@@ -10,8 +10,14 @@ namespace MailSender.Infrastructure.Services
         private int _SendedMailsCount;
 
         public int SendedMailsCount => _SendedMailsCount;
+        public event EventHandler SendedMailsCountChanged;
 
-        public void MailSended() => _SendedMailsCount++;
+
+        public void MailSended()
+        {
+            _SendedMailsCount++;
+            SendedMailsCountChanged?.Invoke(this, EventArgs.Empty);
+        }
 
         public int SendersCount => TestData.Senders.Count;
         public int RecipientsCount => TestData.Recipients.Count;

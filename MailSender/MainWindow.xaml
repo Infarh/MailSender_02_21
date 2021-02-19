@@ -134,7 +134,7 @@
                                     </Style>
                                 </StackPanel.Resources>
                                 <Button Content="Запланировать"/>
-                                <Button Content="Отправить"/>
+                                <Button Content="Отправить" Command="{Binding SendEmailCommand}"/>
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>
