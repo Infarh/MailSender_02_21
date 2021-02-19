@@ -45,7 +45,7 @@
                                 <ComboBoxItem>smtp.mail.ru:465</ComboBoxItem>
                                 <ComboBoxItem>smtp.gmail.com:587</ComboBoxItem>-->
                             </ComboBox>
-                            <Button>
+                            <Button Command="{Binding LoadServersCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="Media/add.png" Height="16" Margin="0,0,5,0"/>
                                     <TextBlock Text="Добавить" VerticalAlignment="Center"/>
@@ -295,7 +295,10 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Статистика"></TabItem>
+            <TabItem Header="Статистика"
+                     xmlns:v="clr-namespace:MailSender.Views">
+                <v:StatisticView/>
+            </TabItem>
         </TabControl>
     </DockPanel>
 </Window>
