@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
+        xmlns:contr="clr-namespace:MailSender.Controls"
         xmlns:local="clr-namespace:MailSender"
         xmlns:data="clr-namespace:MailSender.Data"
         xmlns:m="clr-namespace:MailSender.Models"
@@ -86,6 +87,10 @@
                             <Button ToolTip="Добавить" fa:Awesome.Content="Solid_PlusCircle" Foreground="DarkBlue"/>
                             <Button ToolTip="Редактировать" fa:Awesome.Content="Solid_Edit" Foreground="DarkOrange"/>
                             <Button ToolTip="Убавить" fa:Awesome.Content="Solid_TrashAlt" Foreground="Red"/>
+                        </ToolBar>
+                        <ToolBar Band="2">
+                            <contr:ItemsPanel Title="{Binding Text, ElementName=Test}"/>
+                            <TextBox Name="Test" Text="123"/>
                         </ToolBar>
                     </ToolBarTray>
                     <GroupBox Header="Список получателей" Margin="3">

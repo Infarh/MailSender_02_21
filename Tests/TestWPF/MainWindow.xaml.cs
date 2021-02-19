@@ -22,34 +22,35 @@ namespace TestWPF
             var from = new MailAddress("shmachilin@yandex.ru", "Павел");
             var to = new MailAddress("shmachilin@gmail.com", "Павел");
 
-            var message = new MailMessage(from, to);
-            message.Subject = "Заголовок";
-            message.Body = "Текст письма";
-
-            var client = new SmtpClient("smtp.yandex.ru", 25);
-            client.EnableSsl = true;
-
-            client.Credentials = new NetworkCredential
+            using var message = new MailMessage(from, to)
             {
-                UserName = LoginEdit.Text,
-                SecurePassword = PasswordEdit.SecurePassword
-                //Password = PasswordEdit.Password
+                Subject = "Заголовок", 
+                Body = "Текст письма"
+            };
+
+            using var client = new SmtpClient("smtp.yandex.ru", 225)
+            {
+                Timeout = 400,
+                EnableSsl = true,
+                Credentials = new NetworkCredential
+                {
+                    UserName = LoginEdit.Text,
+                    SecurePassword = PasswordEdit.SecurePassword
+                }
             };
 
             try
             {
                 client.Send(message);
-
                 MessageBox.Show("Почта успешно отправлена!", "Отправка почты", MessageBoxButton.OK, MessageBoxImage.Information);
-
+            }
+            catch (SmtpException error) when(error.Message == "The operation has timed out.")
+            {
+                MessageBox.Show("Ошибка адреса сервера", "Ошибка отправки почты", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (SmtpException)
             {
                 MessageBox.Show("Ошибка авторизации", "Ошибка отправки почты", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            catch (TimeoutException)
-            {
-                MessageBox.Show("Ошибка адреса сервера", "Ошибка отправки почты", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
