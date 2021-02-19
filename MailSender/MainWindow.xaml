@@ -19,7 +19,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
-                <MenuItem Header="Выход" Click="Exit_Click"/>
+                <MenuItem Header="Выход" Command="{StaticResource CloseAppCommand}"/>
             </MenuItem>
             <MenuItem Header="Справка">
                 <MenuItem Header="Помощь"/>
@@ -39,7 +39,7 @@
                     <ToolBarTray DockPanel.Dock="Top">
                         <ToolBar Header="Сервера">
                             <ComboBox Margin="26,0,0,0" MinWidth="120" MaxWidth="200" SelectedIndex="0"
-                                      ItemsSource="{x:Static data:TestData.Servers}"
+                                      ItemsSource="{Binding Servers}"
                                       DisplayMemberPath="Address">
                                 <!--<ComboBoxItem>smtp.yandex.ru:465</ComboBoxItem>
                                 <ComboBoxItem>smtp.mail.ru:465</ComboBoxItem>

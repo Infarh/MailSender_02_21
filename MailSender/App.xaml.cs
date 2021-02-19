@@ -1,4 +1,5 @@
 ﻿using System;
+using MailSender.Infrastructure;
 using MailSender.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +25,8 @@ namespace MailSender
         private static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
             services.AddSingleton<MainWindowViewModel>();
+
+            services.AddSingleton<ServersRepository>();
         }
     }
 }
