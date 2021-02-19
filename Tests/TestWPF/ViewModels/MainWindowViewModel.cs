@@ -12,8 +12,11 @@ namespace TestWPF.ViewModels
             get => _Title;
             set
             {
+                //if(_Title == value) return;
+                if(Equals(_Title, value)) return;
+                
                 _Title = value;
-                OnPropertyChanged(nameof(Title));
+                OnPropertyChanged();
             }
         }
     }
