@@ -2,8 +2,12 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:MailSender"
+             xmlns:vm="clr-namespace:MailSender.ViewModels"
+             xmlns:commands="clr-namespace:MailSender.lib.Commands;assembly=MailSender.lib"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+         <vm:ViewModelLocator x:Key="Locator"/>
+
+        <commands:CloseAppCommand x:Key="CloseAppCommand"/>
     </Application.Resources>
 </Application>

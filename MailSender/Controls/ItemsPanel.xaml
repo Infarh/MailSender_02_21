@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="MailSender.Controls.ItemsPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:l="clr-namespace:MailSender.Controls"
+             xmlns:data="clr-namespace:MailSender.Data"
+             xmlns:models="clr-namespace:MailSender.Models"
+             xmlns:fa="http://schemas.fontawesome.com/icons/"
+             Height="27" Width="400">
+    <DockPanel>
+        <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=l:ItemsPanel}}"
+                   VerticalAlignment="Center" Margin="3,0"/>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Padding" Value="4,0"/>
+                    <Setter Property="Margin" Value="1,0"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </StackPanel.Resources>
+            <Button>
+                <StackPanel Orientation="Horizontal">
+                    <fa:ImageAwesome Height="12" Icon="Solid_PlusCircle"
+                                     Margin="0,0,5,0"
+                                     Foreground="DarkBlue"/>
+                    <TextBlock Text="Добавить" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button ToolTip="Редактировать" fa:Awesome.Content="Solid_Edit" Foreground="DarkOrange"/>
+            <Button ToolTip="Убавить" fa:Awesome.Content="Solid_TrashAlt" Foreground="Red"/>
+        </StackPanel>
+        <ComboBox SelectedIndex="0" Margin="3,0" VerticalContentAlignment="Center"
+                  ItemsSource="{x:Static data:TestData.Senders}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate DataType="models:Sender">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}"/>
+                        <TextBlock Text="{Binding Address}" Margin="3,0,0,0"
+                                   Opacity="0.6" FontSize="8"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+    </DockPanel>
+</UserControl>

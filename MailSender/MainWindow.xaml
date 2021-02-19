@@ -4,15 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
+        xmlns:contr="clr-namespace:MailSender.Controls"
         xmlns:local="clr-namespace:MailSender"
         xmlns:data="clr-namespace:MailSender.Data"
         xmlns:m="clr-namespace:MailSender.Models"
+        xmlns:vm="clr-namespace:MailSender.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{Binding Title}"
+        DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
+        Height="450" Width="800">
+    <!--<Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>-->
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
-                <MenuItem Header="Выход" Click="Exit_Click"/>
+                <MenuItem Header="Выход" Command="{StaticResource CloseAppCommand}"/>
             </MenuItem>
             <MenuItem Header="Справка">
                 <MenuItem Header="Помощь"/>
@@ -24,7 +31,7 @@
             <StatusBarItem DockPanel.Dock="Right">
                 <ResizeGrip/>
             </StatusBarItem>
-            <StatusBarItem Content="Готов к труду и обороне!"/>
+            <StatusBarItem Content="{Binding Status}"/>
         </StatusBar>
         <TabControl>
             <TabItem Header="Списки">
@@ -32,13 +39,13 @@
                     <ToolBarTray DockPanel.Dock="Top">
                         <ToolBar Header="Сервера">
                             <ComboBox Margin="26,0,0,0" MinWidth="120" MaxWidth="200" SelectedIndex="0"
-                                      ItemsSource="{x:Static data:TestData.Servers}"
+                                      ItemsSource="{Binding Servers}"
                                       DisplayMemberPath="Address">
                                 <!--<ComboBoxItem>smtp.yandex.ru:465</ComboBoxItem>
                                 <ComboBoxItem>smtp.mail.ru:465</ComboBoxItem>
                                 <ComboBoxItem>smtp.gmail.com:587</ComboBoxItem>-->
                             </ComboBox>
-                            <Button>
+                            <Button Command="{Binding LoadServersCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="Media/add.png" Height="16" Margin="0,0,5,0"/>
                                     <TextBlock Text="Добавить" VerticalAlignment="Center"/>
@@ -87,6 +94,9 @@
                             <Button ToolTip="Редактировать" fa:Awesome.Content="Solid_Edit" Foreground="DarkOrange"/>
                             <Button ToolTip="Убавить" fa:Awesome.Content="Solid_TrashAlt" Foreground="Red"/>
                         </ToolBar>
+                        <ToolBar Band="2">
+                            <contr:ItemsPanel/>
+                        </ToolBar>
                     </ToolBarTray>
                     <GroupBox Header="Список получателей" Margin="3">
                         <DataGrid AutoGenerateColumns="False"
@@ -124,7 +134,7 @@
                                     </Style>
                                 </StackPanel.Resources>
                                 <Button Content="Запланировать"/>
-                                <Button Content="Отправить"/>
+                                <Button Content="Отправить" Command="{Binding SendEmailCommand}"/>
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>
@@ -285,7 +295,10 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Статистика"></TabItem>
+            <TabItem Header="Статистика"
+                     xmlns:v="clr-namespace:MailSender.Views">
+                <v:StatisticView/>
+            </TabItem>
         </TabControl>
     </DockPanel>
 </Window>

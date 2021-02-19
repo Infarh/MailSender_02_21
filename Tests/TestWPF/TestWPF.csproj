@@ -11,4 +11,8 @@
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\MailSender.lib\MailSender.lib.csproj" />
+  </ItemGroup>
+
 </Project>

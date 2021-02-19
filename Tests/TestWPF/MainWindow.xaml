@@ -4,41 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestWPF"
+        xmlns:vm="clr-namespace:TestWPF.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="412" Width="770">
+        Title="{Binding Title}"
+        Height="412" Width="770">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
-        <Button Content="Отправить" Margin="346,0,346,77" d:LayoutOverrides="HorizontalAlignment" Height="50" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" Click="SendButton_Click">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleX="-38.48"/>
-                    <RotateTransform/>
-                    <TranslateTransform X="19.872"/>
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
-        <TextBlock Margin="166,119,0,0" Text="Имя пользователя" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <TextBlock Margin="0,119,163,0" Text="Пароль" TextWrapping="Wrap" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-        <TextBox x:Name="LoginEdit" Margin="137,181,0,0" Text="TextBox" TextWrapping="Wrap" HorizontalAlignment="Left" Width="163" Height="19" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
-            <TextBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform />
-                    <SkewTransform/>
-                    <RotateTransform Angle="-23.909" x:Name="Rotator"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </TextBox.RenderTransform>
-        </TextBox>
-        <PasswordBox x:Name="PasswordEdit" Margin="478,181,103,0" Height="19" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
-            <PasswordBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="19.903"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </PasswordBox.RenderTransform>
-        </PasswordBox>
+        <Slider Margin="5" VerticalAlignment="Top" Minimum="0" Maximum="600"
+                Name="Translator"/>
 
+        <Ellipse Width="50" Height="50" Fill="Blue" Margin="29,53,691,293">
+            <Ellipse.RenderTransform>
+                <TranslateTransform X="{Binding Value, ElementName=Translator}"/>
+            </Ellipse.RenderTransform>
+        </Ellipse>
+        <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" 
+                 VerticalAlignment="Top" HorizontalAlignment="Left"
+                 Margin="15,30,0,0" Width="155"/>
     </Grid>
 </Window>

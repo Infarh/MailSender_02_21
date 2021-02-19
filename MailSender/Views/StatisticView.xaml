@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="MailSender.Views.StatisticView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MailSender.Views"
+             mc:Ignorable="d" 
+             DataContext="{Binding Statistic, Source={StaticResource Locator}}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="10">
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="Margin" Value="5"/>
+                <Style.Triggers>
+                    <Trigger Property="Grid.Column" Value="0">
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                        <Setter Property="Margin" Value="0,5,3,5"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Число отправленных писем:"/>
+        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding MailsSendedCount}"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Число отправителей в базе:"/>
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding SendersCount}"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Число получателей в базе:"/>
+        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding RecipientsCount}"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Время сеанса:"/>
+        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding UpTime}"/>
+    </Grid>
+</UserControl>
