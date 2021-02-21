@@ -1,0 +1,43 @@
+﻿<Window x:Class="MailSender.Windows.ServerEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MailSender.Windows"
+        mc:Ignorable="d"
+        Title="Редактировать сервер" Height="250" Width="300" WindowStartupLocation="CenterOwner">
+    <DockPanel Margin="5">
+        <GroupBox Header="Имя сервера" DockPanel.Dock="Top">
+            <TextBox Name="TextBoxServerName" x:FieldModifier="private"/>
+        </GroupBox>
+        <Border DockPanel.Dock="Top">
+            <DockPanel>
+                <GroupBox Header="Использование SSL" DockPanel.Dock="Right">
+                    <CheckBox Name="CheckBoxServerSsl" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </GroupBox>
+                <GroupBox Header="Порт" DockPanel.Dock="Right">
+                    <TextBox Name="TextBoxServerPort" Text="25" PreviewTextInput="TextBoxServerPort_OnPreviewTextInput"/>
+                </GroupBox>
+                <GroupBox Header="Адрес">
+                    <TextBox Name="TextBoxServerAddress"/>
+                </GroupBox>
+            </DockPanel>
+        </Border>
+        <UniformGrid DockPanel.Dock="Top" Rows="1">
+            <GroupBox Header="Логин">
+                <TextBox Name="TextBoxLogin"/>
+            </GroupBox>
+            <GroupBox Header="Пароль">
+                <PasswordBox Name="PasswordBoxPassword"/>
+            </GroupBox>
+        </UniformGrid>
+        <UniformGrid DockPanel.Dock="Bottom" Rows="1" 
+                     HorizontalAlignment="Right"
+                     Margin="10"
+                     Button.Click="WindowButton_OnClick">
+            <Button Content="OK" IsDefault="True" Margin="3,0"/>
+            <Button Content="Отмена" IsCancel="True" Margin="3,0"/>
+        </UniformGrid>
+
+    </DockPanel>
+</Window>
