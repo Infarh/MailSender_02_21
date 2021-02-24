@@ -28,7 +28,7 @@
 
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Имя:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
         <TextBox Grid.Column="1" Grid.Row="1" 
-                 Text="{Binding SelectedRecipient.Name, NotifyOnValidationError=True}" 
+                 Text="{Binding SelectedRecipient.Name, NotifyOnValidationError=True, ValidatesOnExceptions=True}" 
                  Validation.Error="OnNameValidationError"
                  Margin="5"/>
 
