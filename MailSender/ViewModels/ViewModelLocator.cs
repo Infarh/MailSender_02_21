@@ -4,7 +4,14 @@ namespace MailSender.ViewModels
 {
     internal class ViewModelLocator
     {
-        public MainWindowViewModel MainWindowModel => App.Services.GetRequiredService<MainWindowViewModel>();
+        public MainWindowViewModel MainWindowModel
+        {
+            get
+            {
+                var model = App.Services.GetRequiredService<MainWindowViewModel>();
+                return model;
+            }
+        }
 
         public StatisticViewModel Statistic => App.Services.GetRequiredService<StatisticViewModel>();
     }

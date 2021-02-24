@@ -4,10 +4,12 @@
              xmlns:local="clr-namespace:MailSender"
              xmlns:vm="clr-namespace:MailSender.ViewModels"
              xmlns:commands="clr-namespace:MailSender.lib.Commands;assembly=MailSender.lib"
+             xmlns:converters="clr-namespace:MailSender.Infrastructure.Converters"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         <vm:ViewModelLocator x:Key="Locator"/>
+        <vm:ViewModelLocator x:Key="Locator"/>
 
         <commands:CloseAppCommand x:Key="CloseAppCommand"/>
+        <converters:DebugConverter x:Key="DebugConverter"/>
     </Application.Resources>
 </Application>
