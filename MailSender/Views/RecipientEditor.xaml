@@ -9,6 +9,26 @@
              DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
              d:DesignHeight="284.911" d:DesignWidth="281.657">
     <Grid Margin="5">
+        <Grid.Resources>
+            <Style TargetType="TextBox">
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <DockPanel>
+                                <TextBlock Text="!" 
+                                           FontWeight="Bold" Foreground="Red"
+                                           VerticalAlignment="Center"
+                                           Margin="3,0,0,0"
+                                           DockPanel.Dock="Right"/>
+                                <Border Padding="2" BorderBrush="Red" BorderThickness="3" CornerRadius="3">
+                                    <AdornedElementPlaceholder/>
+                                </Border>
+                            </DockPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
