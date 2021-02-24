@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vr="clr-namespace:MailSender.Infrastructure.ValidationRules"
              xmlns:local="clr-namespace:MailSender.Views"
              mc:Ignorable="d" 
              DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
@@ -33,7 +34,23 @@
                  Margin="5"/>
 
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Адрес:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding SelectedRecipient.Address}" Margin="5"/>
+        <TextBox Grid.Column="1" Grid.Row="2"
+                 Margin="5"
+                 Validation.Error="OnNameValidationError">
+            <TextBox.Text>
+                <Binding Path="SelectedRecipient.Address"
+                         NotifyOnValidationError="True"
+                         UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <vr:RegExValidation Pattern="(\w+\.)*\w+@(\w+\.)+[A-Za-z]+" 
+                                            ErrorMessage="Неверный формат адреса электронной почты"/>
+                        <NotifyDataErrorValidationRule/>
+                        <DataErrorValidationRule/>
+                        <ExceptionValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <UniformGrid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Rows="1"
                      VerticalAlignment="Top" HorizontalAlignment="Center"
