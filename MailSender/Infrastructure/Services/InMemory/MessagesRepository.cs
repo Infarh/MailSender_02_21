@@ -3,7 +3,7 @@ using MailSender.Models;
 
 namespace MailSender.Infrastructure.Services.InMemory
 {
-    class MessagesRepository : RepositoryInMemory<Message>
+    public class MessagesRepository : RepositoryInMemory<Message>
     {
         public MessagesRepository() : base(Enumerable.Range(1, 10)
            .Select(i => new Message
