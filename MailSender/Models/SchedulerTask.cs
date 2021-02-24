@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using MailSender.Models.Base;
 
 namespace MailSender.Models
 {
-    public class SchedulerTask
+    public class SchedulerTask : Entity
     {
         public DateTime Time { get; set; }
         public Server Server { get; set; }
