@@ -28,7 +28,8 @@
                   GridLinesVisibility="Vertical"
                   VerticalGridLinesBrush="DarkGray"
                   AlternatingRowBackground="#330000FF"
-                  ItemsSource="{Binding Recipients}">
+                  ItemsSource="{Binding Recipients}"
+                  SelectedItem="{Binding SelectedRecipient}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" MinWidth="30"/>
                 <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*"/>
