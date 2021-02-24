@@ -23,6 +23,9 @@ namespace MailSender.ViewModels
         public string Status { get => _Status; set => Set(ref _Status, value); }
 
         public ObservableCollection<Server> Servers { get; } = new ();
+        public ObservableCollection<Recipient> Recipients { get; } = new();
+        public ObservableCollection<Sender> Senders { get; } = new();
+        public ObservableCollection<Message> Messages { get; } = new();
 
         #region Команды
 
