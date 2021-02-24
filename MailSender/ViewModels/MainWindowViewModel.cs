@@ -2,16 +2,24 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using MailSender.Infrastructure;
+using MailSender.Infrastructure.Services;
+using MailSender.Infrastructure.Services.InMemory;
 using MailSender.lib.Commands;
 using MailSender.lib.Interfaces;
 using MailSender.lib.ViewModels.Base;
 using MailSender.Models;
+using MailSender.Models.Base;
 
 namespace MailSender.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-        private readonly ServersRepository _Servers;
+        private readonly IRepository<Server> _Servers;
+        private readonly IRepository<Sender> _Senders;
+        private readonly IRepository<Recipient> _Recipients;
+        private readonly IRepository<Message> _Messages;
+
+
         private readonly IMailService _MailService;
 
         private string _Title = "Рассыльщик";
@@ -55,16 +63,34 @@ namespace MailSender.ViewModels
 
         #endregion
 
-        public MainWindowViewModel(ServersRepository Servers, IMailService MailService)
+        public MainWindowViewModel(
+            IRepository<Server> Servers,
+            IRepository<Sender> Senders,
+            IRepository<Recipient> Recipients,
+            IRepository<Message> Messages,
+            IMailService MailService)
         {
             _Servers = Servers;
+            _Senders = Senders;
+            _Recipients = Recipients;
+            _Messages = Messages;
+
             _MailService = MailService;
+        }
+
+        private static void Load<T>(ObservableCollection<T> collection, IRepository<T> rep) where T : Entity
+        {
+            collection.Clear();
+            foreach (var item in rep.GetAll())
+                collection.Add(item);
         }
 
         private void LoadServers()
         {
-            foreach (var server in _Servers.GetAll())
-                Servers.Add(server);
+            Load(Servers, _Servers);
+            Load(Recipients, _Recipients);
+            Load(Senders, _Senders);
+            Load(Messages, _Messages);
         }
     }
 }
