@@ -39,14 +39,14 @@ namespace MailSender.ViewModels
 
         private ICommand _LoadServersCommand;
 
-        public ICommand LoadServersCommand => _LoadServersCommand
+        public ICommand LoadDataCommand => _LoadServersCommand
             ??= new LambdaCommand(OnLoadServersCommandExecuted, CanLoadServersCommandExecute);
 
         private bool CanLoadServersCommandExecute(object p) => Servers.Count == 0;
 
         private void OnLoadServersCommandExecuted(object p)
         {
-            LoadServers();
+            LoadData();
         }
 
         private ICommand _SendEmailCommand;
@@ -85,7 +85,7 @@ namespace MailSender.ViewModels
                 collection.Add(item);
         }
 
-        private void LoadServers()
+        private void LoadData()
         {
             Load(Servers, _Servers);
             Load(Recipients, _Recipients);

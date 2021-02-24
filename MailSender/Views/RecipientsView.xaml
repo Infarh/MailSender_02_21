@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MailSender.ViewModels"
+             DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
              d:DesignHeight="380" d:DesignWidth="440">
     <DockPanel Margin="3">
         <TextBlock Text="Получатели" DockPanel.Dock="Top" HorizontalAlignment="Center"
@@ -13,7 +14,7 @@
             <TextBox/>
         </DockPanel>
         <UniformGrid DockPanel.Dock="Bottom" Rows="1" HorizontalAlignment="Center" Margin="3">
-            <Button Content="Загрузка данных" Margin="3,0" Padding="20,3"/>
+            <Button Content="Загрузка данных" Margin="3,0" Padding="20,3" Command="{Binding LoadDataCommand}"/>
             <Button Content="Сохранение данных" Margin="3,0" Padding="20,3"/>
         </UniformGrid>
         <DataGrid Margin="5,0" AutoGenerateColumns="False"
@@ -21,7 +22,7 @@
                   GridLinesVisibility="Vertical"
                   VerticalGridLinesBrush="DarkGray"
                   AlternatingRowBackground="#330000FF"
-                  >
+                  ItemsSource="{Binding Recipients}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" MinWidth="30"/>
                 <DataGridTextColumn Header="Имя" Binding="{Binding Name}" Width="*"/>
