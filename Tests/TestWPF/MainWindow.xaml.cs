@@ -18,6 +18,8 @@ namespace TestWPF
 
         private void OpenFileMenu_Click(object Sender, RoutedEventArgs E)
         {
+            var ui_thread_id = Thread.CurrentThread.ManagedThreadId;
+
             var open_dialog = new OpenFileDialog
             {
                 Filter = "Excel (*.xlsx)|*.xlsx|Все файлы (*.*)|*.*",
@@ -31,8 +33,29 @@ namespace TestWPF
 
             if (!File.Exists(file_name)) return;
 
+            var load_data_thread = new Thread(() => LoadData(file_name));
+            load_data_thread.Start();
+        }
+
+        private void LoadData(string FileName)
+        {
+            var persons = GetPersons(FileName);
+            var work_thread_id = Thread.CurrentThread.ManagedThreadId;
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                var ui_thread_id = Thread.CurrentThread.ManagedThreadId;
+                return Data.ItemsSource = persons;
+            });
+            //Data.Dispatcher.Invoke(() => Data.ItemsSource = persons);
+        }
+
+        private static IEnumerable<Person> GetPersons(string FileName)
+        {
             var persons = new List<Person>();
-            foreach (var row in Excel.File(file_name)["senders"].Skip(1))
+            var thread_id = Thread.CurrentThread.ManagedThreadId;
+
+            foreach (var row in Excel.File(FileName)["senders"].Skip(1))
             {
                 var values = row.Values.ToArray();
                 persons.Add(new Person(
@@ -41,11 +64,9 @@ namespace TestWPF
                     values[2],
                     values[3],
                     values[4]
-                    ));
-                Thread.Sleep(1);
+                ));
             }
-
-            Data.ItemsSource = persons;
+            return persons;
         }
     }
 }
