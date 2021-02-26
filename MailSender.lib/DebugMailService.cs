@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using MailSender.lib.Interfaces;
 
 namespace MailSender.lib
@@ -31,6 +32,18 @@ namespace MailSender.lib
         public void Send(string SenderAddress, string RecipientAddress, string Subject, string Body)
         {
             Debug.WriteLine("Отправка почты ...");
+        }
+
+        public void Send(string SenderAddress, IEnumerable<string> RecipientsAddresses, string Subject, string Body)
+        {
+            foreach (var recipient_address in RecipientsAddresses)
+                Send(SenderAddress, recipient_address, Subject, Body);
+        }
+
+        public void SendParallel(string SenderAddress, IEnumerable<string> RecipientsAddresses, string Subject, string Body)
+        {
+            foreach (var recipient_address in RecipientsAddresses)
+                Send(SenderAddress, recipient_address, Subject, Body);
         }
     }
 }
