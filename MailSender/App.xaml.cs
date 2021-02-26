@@ -2,6 +2,7 @@ using System;
 using MailSender.Infrastructure;
 using MailSender.Infrastructure.Services;
 using MailSender.Infrastructure.Services.InMemory;
+using MailSender.lib;
 using MailSender.lib.Interfaces;
 using MailSender.lib.Service;
 using MailSender.Models;
@@ -38,7 +39,12 @@ namespace MailSender
             services.AddSingleton<IRepository<Message>, MessagesRepository>();
 
             services.AddSingleton<IStatistic, InMemoryStatisticService>();
+
+#if DEBUG
             services.AddSingleton<IMailService, DebugMailService>();
+#else
+            services.AddSingleton<IMailService, SmtpMailService>();
+#endif
         }
     }
 }
