@@ -13,7 +13,8 @@ namespace TestConsole
             //ExcelCreator.Create();
             //ThreadsTest.Start();
             //ThreadPoolTest.Start();
-            CriticalSection.Test();
+            //CriticalSection.Test();
+            ThreadManagement.Test();
 
             Console.WriteLine("Главный поток завершил работу!");
             Console.ReadLine();
