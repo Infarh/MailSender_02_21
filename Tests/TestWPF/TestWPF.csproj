@@ -19,10 +19,4 @@
     <ProjectReference Include="..\..\MailSender.lib\MailSender.lib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="senders.xlsx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
