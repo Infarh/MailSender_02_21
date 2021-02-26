@@ -12,12 +12,11 @@ namespace TestConsole
         {
             //ExcelCreator.Create();
             //ThreadsTest.Start();
-            ThreadPoolTest.Start();
+            //ThreadPoolTest.Start();
+            CriticalSection.Test();
 
             Console.WriteLine("Главный поток завершил работу!");
             Console.ReadLine();
         }
-
-
     }
 }
