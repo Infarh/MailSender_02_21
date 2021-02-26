@@ -12,7 +12,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.12.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\MailSender.lib\MailSender.lib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="senders.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

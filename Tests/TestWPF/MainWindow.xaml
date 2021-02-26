@@ -6,22 +6,13 @@
         xmlns:local="clr-namespace:TestWPF"
         xmlns:vm="clr-namespace:TestWPF.ViewModels"
         mc:Ignorable="d"
-        Title="{Binding Title}"
         Height="412" Width="770">
-    <Window.DataContext>
-        <vm:MainWindowViewModel/>
-    </Window.DataContext>
-    <Grid>
-        <Slider Margin="5" VerticalAlignment="Top" Minimum="0" Maximum="600"
-                Name="Translator"/>
-
-        <Ellipse Width="50" Height="50" Fill="Blue" Margin="29,53,691,293">
-            <Ellipse.RenderTransform>
-                <TranslateTransform X="{Binding Value, ElementName=Translator}"/>
-            </Ellipse.RenderTransform>
-        </Ellipse>
-        <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" 
-                 VerticalAlignment="Top" HorizontalAlignment="Left"
-                 Margin="15,30,0,0" Width="155"/>
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Открыть" Click="OpenFileMenu_Click" />
+            </MenuItem>
+        </Menu>
+        <DataGrid Name="Data"/>
+    </DockPanel>
 </Window>
