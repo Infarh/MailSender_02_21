@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 // ReSharper disable AsyncConverter.AsyncWait
+// ReSharper disable AsyncConverter.ConfigureAwaitHighlighting
 
 namespace TestConsole
 {
@@ -45,8 +46,6 @@ namespace TestConsole
             #endregion
         }
 
-
-
         private static long IntSum(long x)
         {
             if (x < 0) return IntSum(-x);
@@ -61,6 +60,44 @@ namespace TestConsole
             }
 
             return result;
+        }
+
+        public static async void RunBadAsync() // async void - только в крайних случаях!
+        {
+            try
+            {
+                var compute_value30_task = Task.Run(() => IntSum(30));
+
+                var value_30 = await compute_value30_task/*.ConfigureAwait(false)*/;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public static async Task RunAsync()
+        {
+            var messages = Enumerable.Range(1, 100).Select(i => $"Message {i}").ToArray();
+            //var tasks = messages.Select(message => Task.Run(() => MessageProcessing(message)));
+            //var result = await Task.WhenAll(tasks);
+            //foreach (var processed_messages in result)
+            //    Console.WriteLine(processed_messages);
+
+            foreach (var message in messages)
+            {
+                var processed_message = await Task.Run(() => MessageProcessing(message))
+                   .ConfigureAwait(true);
+
+                Console.WriteLine("ThreadID:{0} - {1}", Thread.CurrentThread.ManagedThreadId, processed_message);
+            }
+        }
+
+        private static string MessageProcessing(string Message)
+        {
+            Thread.Sleep(250);
+            return $"Processed msg:\"{Message}\"";
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+// ReSharper disable AsyncConverter.AsyncWait
 
 namespace TestConsole
 {
@@ -7,7 +8,8 @@ namespace TestConsole
         static void Main(string[] args)
         {
             //TPLOverview.Test();
-            TaskTests.Run();
+            //TaskTests.Run();
+            TaskTests.RunAsync().Wait();
 
             Console.WriteLine("Главный поток завершил работу!");
             Console.ReadLine();
