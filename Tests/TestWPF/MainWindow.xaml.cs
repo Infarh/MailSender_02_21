@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Markup;
-using Microsoft.Win32;
-using TestWPF.Servcie;
+using System.Windows.Controls;
+
+// ReSharper disable AsyncConverter.ConfigureAwaitHighlighting
 
 namespace TestWPF
 {
@@ -14,59 +12,101 @@ namespace TestWPF
     {
         public MainWindow() => InitializeComponent();
 
-        public record Person(int Id, string LastName, string Name, string Patronymic, string Address);
+        private CancellationTokenSource _CalculationCancellation;
 
-        private void OpenFileMenu_Click(object Sender, RoutedEventArgs E)
+        private async void StartButtonClick(object sender, RoutedEventArgs e)
         {
-            var ui_thread_id = Thread.CurrentThread.ManagedThreadId;
+            //var thread_id = Thread.CurrentThread.ManagedThreadId;
 
-            var open_dialog = new OpenFileDialog
+            var button = (Button)sender;
+            button.IsEnabled = false;
+            CancelButton.IsEnabled = true;
+
+            var cancellation = new CancellationTokenSource();
+            _CalculationCancellation = cancellation;
+            var progress = new Progress<double>(
+                value =>
+                {
+                    ProgressInformer.Value = value;
+                    PercentProgressInfo.Text = value.ToString("p");
+                });
+
+            //var result = await Task.Run(() => IntSum(500)).ConfigureAwait(true);
+            try
             {
-                Filter = "Excel (*.xlsx)|*.xlsx|Все файлы (*.*)|*.*",
-                InitialDirectory = Environment.CurrentDirectory,
-                Title = "Выбор файла для чтения"
-            };
+                var result = await IntSumAsync(500, progress, cancellation.Token)
+                   .ConfigureAwait(true);
 
-            if(open_dialog.ShowDialog() != true) return;
+                ((IProgress<double>)progress).Report(0);
 
-            var file_name = open_dialog.FileName;
+                //var thread_id2 = Thread.CurrentThread.ManagedThreadId;
 
-            if (!File.Exists(file_name)) return;
-
-            var load_data_thread = new Thread(() => LoadData(file_name));
-            load_data_thread.Start();
+                ResultTextBlock.Text = result.ToString();
+                
+            }
+            catch (OperationCanceledException)
+            {
+                ResultTextBlock.Text = "Операция отменена";
+                ((IProgress<double>)progress).Report(0);
+            }
+            CancelButton.IsEnabled = false;
+            button.IsEnabled = true;
         }
 
-        private void LoadData(string FileName)
+        private void CancelButtonClick(object sender, RoutedEventArgs e)
         {
-            var persons = GetPersons(FileName);
-            var work_thread_id = Thread.CurrentThread.ManagedThreadId;
-
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                var ui_thread_id = Thread.CurrentThread.ManagedThreadId;
-                return Data.ItemsSource = persons;
-            });
-            //Data.Dispatcher.Invoke(() => Data.ItemsSource = persons);
+            _CalculationCancellation?.Cancel();
         }
 
-        private static IEnumerable<Person> GetPersons(string FileName)
+        private static long IntSum(long x)
         {
-            var persons = new List<Person>();
             var thread_id = Thread.CurrentThread.ManagedThreadId;
 
-            foreach (var row in Excel.File(FileName)["senders"].Skip(1))
+            if (x < 0) return IntSum(-x);
+
+            var result = 0l;
+            while (x > 0)
             {
-                var values = row.Values.ToArray();
-                persons.Add(new Person(
-                    int.Parse(values[0]),
-                    values[1],
-                    values[2],
-                    values[3],
-                    values[4]
-                ));
+                result += x;
+                x--;
+
+                Thread.Sleep(10);
             }
-            return persons;
+
+            return result;
+        }
+
+        private static async Task<long> IntSumAsync(
+            long X,
+            IProgress<double> Progress = default,
+            CancellationToken Cancel = default)
+        {
+            var thread_id = Thread.CurrentThread.ManagedThreadId;
+
+            Cancel.ThrowIfCancellationRequested();
+
+            if (X < 0) return await IntSumAsync(-X).ConfigureAwait(false);
+
+            var result = 0l;
+            var x = 1;
+            while (x <= X)
+            {
+                if (Cancel.IsCancellationRequested)
+                {
+                    // Подготовиться к отмене операции, почистить ресурсы
+                    Cancel.ThrowIfCancellationRequested();
+                }
+
+                result += x;
+                x++;
+
+                Progress?.Report((double)x / X);
+
+                await Task.Delay(10, Cancel).ConfigureAwait(false);
+                //Thread.Sleep(10);
+            }
+
+            return result;
         }
     }
 }
