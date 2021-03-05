@@ -18,9 +18,9 @@ namespace TestConsole.Entityes
         //[Column("MiddleName")]
         public string Patronymic { get; set; }
 
-        public DateTime Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
 
-        public double Rating { get; set; }
+        public double? Rating { get; set; }
 
         public virtual ICollection<Course> Courses { get; set; } = new List<Course>();
     }
