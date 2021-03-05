@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using MailSender.Models;
+using MailSender.lib.Entities;
 
 namespace MailSender.Infrastructure.Services.InMemory
 {

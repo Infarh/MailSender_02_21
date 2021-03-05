@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using MailSender.lib.Interfaces;
 
 namespace MailSender.lib
@@ -44,6 +46,39 @@ namespace MailSender.lib
         {
             foreach (var recipient_address in RecipientsAddresses)
                 Send(SenderAddress, recipient_address, Subject, Body);
+        }
+
+        public Task SendAsync(
+            string SenderAddress, 
+            string RecipientAddress, 
+            string Subject, string Body, 
+            CancellationToken Cancel = default)
+        {
+            Debug.WriteLine("Отправка почты ... асинхронно");
+
+            return Task.CompletedTask;
+        }
+
+        public Task SendAsync(string SenderAddress,
+            IEnumerable<string> RecipientsAddresses,
+            string Subject,
+            string Body,
+            CancellationToken Cancel = default)
+        {
+            Debug.WriteLine("Отправка почты ... асинхронно");
+
+            return Task.CompletedTask;
+        }
+
+        public Task SendParallelAsync(string SenderAddress,
+            IEnumerable<string> RecipientsAddresses,
+            string Subject,
+            string Body,
+            CancellationToken Cancel = default)
+        {
+            Debug.WriteLine("Отправка почты ... асинхронно");
+
+            return Task.CompletedTask;
         }
     }
 }

@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:l="clr-namespace:MailSender.Controls"
              xmlns:data="clr-namespace:MailSender.Data"
-             xmlns:models="clr-namespace:MailSender.Models"
              xmlns:fa="http://schemas.fontawesome.com/icons/"
              Height="27" Width="400">
     <DockPanel>

@@ -1,4 +1,4 @@
-﻿namespace MailSender.Models.Base
+﻿namespace MailSender.lib.Entities.Base
 {
     public abstract class Entity
     {

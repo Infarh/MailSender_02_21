@@ -1,15 +1,20 @@
 using System;
+using System.Windows;
+using MailSender.Data;
 using MailSender.Infrastructure;
 using MailSender.Infrastructure.Services;
+using MailSender.Infrastructure.Services.InDatabase;
 using MailSender.Infrastructure.Services.InMemory;
 using MailSender.lib;
+using MailSender.lib.Entities;
 using MailSender.lib.Interfaces;
 using MailSender.lib.Service;
-using MailSender.Models;
 using MailSender.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+// ReSharper disable AsyncConverter.AsyncWait
 
 namespace MailSender
 {
@@ -30,13 +35,23 @@ namespace MailSender
 
         private static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
+            services.AddDbContext<MailSenderDb>(opt => opt.UseSqlServer(host.Configuration.GetConnectionString("SqlServer")));
+            services.AddTransient<DbInitializer>();
+
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<StatisticViewModel>();
 
-            services.AddSingleton<IRepository<Server>, ServersRepository>();
-            services.AddSingleton<IRepository<Sender>, SendersRepository>();
-            services.AddSingleton<IRepository<Recipient>, RecipientsRepository>();
-            services.AddSingleton<IRepository<Message>, MessagesRepository>();
+            //services.AddSingleton<IRepository<Server>, ServersRepository>();
+            //services.AddSingleton<IRepository<Sender>, SendersRepository>();
+            //services.AddSingleton<IRepository<Recipient>, RecipientsRepository>();
+            //services.AddSingleton<IRepository<Message>, MessagesRepository>();
+
+            //services.AddScoped<IRepository<Server>, DbRepository<Server>>();
+            //services.AddScoped<IRepository<Sender>, DbRepository<Sender>>();
+            //services.AddScoped<IRepository<Recipient>, DbRepository<Recipient>>();
+            //services.AddScoped<IRepository<Message>, DbRepository<Message>>();
+            //services.AddScoped<IRepository<SchedulerTask>, DbRepository<SchedulerTask>>();
+            services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
 
             services.AddSingleton<IStatistic, InMemoryStatisticService>();
 
@@ -45,6 +60,17 @@ namespace MailSender
 #else
             services.AddSingleton<IMailService, SmtpMailService>();
 #endif
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            using (var scope = Services.CreateScope())
+            {
+                var initializer = scope.ServiceProvider.GetRequiredService<DbInitializer>();
+                initializer.InitializeAsync().Wait();
+            }
+
+            base.OnStartup(e);
         }
     }
 }

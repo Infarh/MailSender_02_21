@@ -6,13 +6,16 @@
         xmlns:local="clr-namespace:TestWPF"
         xmlns:vm="clr-namespace:TestWPF.ViewModels"
         mc:Ignorable="d"
-        Height="412" Width="770">
-    <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Файл">
-                <MenuItem Header="Открыть" Click="OpenFileMenu_Click" />
-            </MenuItem>
-        </Menu>
-        <DataGrid Name="Data"/>
-    </DockPanel>
+        Height="407" Width="776">
+    <Grid>
+        <Button Content="Start" Margin="115,150,0,0" Height="48" VerticalAlignment="Top" HorizontalAlignment="Left" Width="111" Click="StartButtonClick"/>
+        <TextBlock Name="ResultTextBlock" Margin="115,54,0,0" Text="TextBlock" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <ProgressBar Margin="115,258,0,0" Name="ProgressInformer"
+                     HorizontalAlignment="Left" Width="340" Height="14" 
+                     VerticalAlignment="Top"
+                     Maximum="1"/>
+        <Button Content="Cancel" Name="CancelButton" IsEnabled="False" Margin="294,150,0,0" Height="48" HorizontalAlignment="Left" Width="158" VerticalAlignment="Top" d:LayoutOverrides="Height" Click="CancelButtonClick"/>
+        <TextBlock Name="PercentProgressInfo" Margin="491,256,0,0" Text="TextBlock" TextWrapping="Wrap" HorizontalAlignment="Left" Width="72" Height="16" VerticalAlignment="Top"/>
+
+    </Grid>
 </Window>

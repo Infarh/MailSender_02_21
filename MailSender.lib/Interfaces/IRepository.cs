@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using MailSender.Models.Base;
+using MailSender.lib.Entities.Base;
 
-namespace MailSender.Infrastructure.Services
+namespace MailSender.lib.Interfaces
 {
     public interface IRepository<T> where T : Entity
     {
