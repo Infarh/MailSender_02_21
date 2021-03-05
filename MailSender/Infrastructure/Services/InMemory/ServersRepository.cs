@@ -1,7 +1,6 @@
 ﻿using System.Linq;
-
+using MailSender.lib.Entities;
 using MailSender.lib.Service;
-using MailSender.Models;
 
 namespace MailSender.Infrastructure.Services.InMemory
 {

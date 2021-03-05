@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MailSender.Infrastructure.Services.InMemory;
-using MailSender.Models;
+using MailSender.lib.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MailSender.Tests.Infrastructure.Services.InMemory

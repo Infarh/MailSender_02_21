@@ -1,6 +1,6 @@
-﻿using MailSender.Models.Base;
+﻿using MailSender.lib.Entities.Base;
 
-namespace MailSender.Models
+namespace MailSender.lib.Entities
 {
     public class Message : Entity
     {

@@ -1,4 +1,4 @@
-﻿using MailSender.Models;
+﻿using MailSender.lib.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace MailSender.Data

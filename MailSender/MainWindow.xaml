@@ -7,9 +7,9 @@
         xmlns:contr="clr-namespace:MailSender.Controls"
         xmlns:local="clr-namespace:MailSender"
         xmlns:data="clr-namespace:MailSender.Data"
-        xmlns:m="clr-namespace:MailSender.Models"
         xmlns:vm="clr-namespace:MailSender.ViewModels"
         xmlns:views="clr-namespace:MailSender.Views"
+        xmlns:e="clr-namespace:MailSender.lib.Entities;assembly=MailSender.lib"
         mc:Ignorable="d"
         Title="{Binding Title}"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
@@ -66,7 +66,7 @@
                                 <ComboBoxItem>petrov@mail.ru</ComboBoxItem>
                                 <ComboBoxItem>sidorov@gmail.com</ComboBoxItem>-->
                                 <ComboBox.ItemTemplate>
-                                    <DataTemplate DataType="m:Sender">
+                                    <DataTemplate DataType="e:Sender">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="{Binding Name}"/>
                                             <TextBlock Text="{Binding Address}" Margin="3,0,0,0"

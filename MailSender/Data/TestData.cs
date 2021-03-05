@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using MailSender.lib.Entities;
 using MailSender.lib.Service;
-using MailSender.Models;
 
 namespace MailSender.Data
 {

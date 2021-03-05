@@ -5,10 +5,10 @@ using MailSender.Infrastructure;
 using MailSender.Infrastructure.Services;
 using MailSender.Infrastructure.Services.InMemory;
 using MailSender.lib.Commands;
+using MailSender.lib.Entities;
+using MailSender.lib.Entities.Base;
 using MailSender.lib.Interfaces;
 using MailSender.lib.ViewModels.Base;
-using MailSender.Models;
-using MailSender.Models.Base;
 
 namespace MailSender.ViewModels
 {

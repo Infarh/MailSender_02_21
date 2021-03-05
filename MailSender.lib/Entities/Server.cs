@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using MailSender.lib.Entities.Base;
 
-using MailSender.Models.Base;
-
-namespace MailSender.Models
+namespace MailSender.lib.Entities
 {
     public class Server : Entity
     {
