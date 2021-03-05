@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using MailSender.Data;
 using MailSender.Infrastructure;
 using MailSender.Infrastructure.Services;
@@ -13,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+// ReSharper disable AsyncConverter.AsyncWait
 
 namespace MailSender
 {
@@ -34,6 +36,7 @@ namespace MailSender
         private static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
             services.AddDbContext<MailSenderDb>(opt => opt.UseSqlServer(host.Configuration.GetConnectionString("SqlServer")));
+            services.AddTransient<DbInitializer>();
 
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<StatisticViewModel>();
@@ -57,6 +60,17 @@ namespace MailSender
 #else
             services.AddSingleton<IMailService, SmtpMailService>();
 #endif
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            using (var scope = Services.CreateScope())
+            {
+                var initializer = scope.ServiceProvider.GetRequiredService<DbInitializer>();
+                initializer.InitializeAsync().Wait();
+            }
+
+            base.OnStartup(e);
         }
     }
 }
