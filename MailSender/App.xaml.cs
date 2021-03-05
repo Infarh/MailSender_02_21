@@ -2,6 +2,7 @@
 using MailSender.Data;
 using MailSender.Infrastructure;
 using MailSender.Infrastructure.Services;
+using MailSender.Infrastructure.Services.InDatabase;
 using MailSender.Infrastructure.Services.InMemory;
 using MailSender.lib;
 using MailSender.lib.Entities;
@@ -37,10 +38,17 @@ namespace MailSender
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<StatisticViewModel>();
 
-            services.AddSingleton<IRepository<Server>, ServersRepository>();
-            services.AddSingleton<IRepository<Sender>, SendersRepository>();
-            services.AddSingleton<IRepository<Recipient>, RecipientsRepository>();
-            services.AddSingleton<IRepository<Message>, MessagesRepository>();
+            //services.AddSingleton<IRepository<Server>, ServersRepository>();
+            //services.AddSingleton<IRepository<Sender>, SendersRepository>();
+            //services.AddSingleton<IRepository<Recipient>, RecipientsRepository>();
+            //services.AddSingleton<IRepository<Message>, MessagesRepository>();
+
+            //services.AddScoped<IRepository<Server>, DbRepository<Server>>();
+            //services.AddScoped<IRepository<Sender>, DbRepository<Sender>>();
+            //services.AddScoped<IRepository<Recipient>, DbRepository<Recipient>>();
+            //services.AddScoped<IRepository<Message>, DbRepository<Message>>();
+            //services.AddScoped<IRepository<SchedulerTask>, DbRepository<SchedulerTask>>();
+            services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
 
             services.AddSingleton<IStatistic, InMemoryStatisticService>();
 
