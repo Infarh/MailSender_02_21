@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using MailSender.Models.Base;
 
 namespace MailSender.Models
@@ -7,6 +8,8 @@ namespace MailSender.Models
     public class Recipient : Entity, IDataErrorInfo
     {
         private string _Name;
+
+        [Required]
         public string Name
         {
             get => _Name;
@@ -19,8 +22,8 @@ namespace MailSender.Models
             }
         }
 
+        [Required]
         public string Address { get; set; }
-
 
         string IDataErrorInfo.Error => null;
 
