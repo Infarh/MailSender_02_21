@@ -9,6 +9,7 @@
         xmlns:data="clr-namespace:MailSender.Data"
         xmlns:vm="clr-namespace:MailSender.ViewModels"
         xmlns:views="clr-namespace:MailSender.Views"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:e="clr-namespace:MailSender.lib.Entities;assembly=MailSender.lib"
         mc:Ignorable="d"
         Title="{Binding Title}"
@@ -124,7 +125,8 @@
                             <TextBlock Text="Дата" HorizontalAlignment="Center" Margin="0,5,0,0"/>
                             <Calendar/>
                             <TextBlock Text="Время" HorizontalAlignment="Center" Margin="0,5,0,0"/>
-                            <TextBox Margin="10,0" HorizontalContentAlignment="Center"/>
+                            <xctk:TimePicker Margin="5,0"/>
+                            <!--<TextBox Margin="10,0" HorizontalContentAlignment="Center"/>-->
                             <StackPanel Margin="5,7">
                                 <StackPanel.Resources>
                                     <Style TargetType="Button">
