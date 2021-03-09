@@ -40,6 +40,7 @@ namespace MailSender
 
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<StatisticViewModel>();
+            services.AddScoped<SchedulerViewModel>();
 
             //services.AddSingleton<IRepository<Server>, ServersRepository>();
             //services.AddSingleton<IRepository<Sender>, SendersRepository>();
@@ -52,6 +53,8 @@ namespace MailSender
             //services.AddScoped<IRepository<Message>, DbRepository<Message>>();
             //services.AddScoped<IRepository<SchedulerTask>, DbRepository<SchedulerTask>>();
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+
+            services.AddScoped<IMailScheduler, MailSchedulerService>();
 
             services.AddSingleton<IStatistic, InMemoryStatisticService>();
 

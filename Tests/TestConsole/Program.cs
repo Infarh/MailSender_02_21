@@ -1,92 +1,121 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Microsoft.EntityFrameworkCore;
-
-using TestConsole.Data;
-using TestConsole.Entityes;
+using System.Reflection;
+using System.Reflection.Emit;
 
 namespace TestConsole
 {
     static class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
-            var options = new DbContextOptionsBuilder<StudentsDb>()
-               .UseLazyLoadingProxies()
-               .UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Students.DB")
-               .Options;
+            const string lib_path = "TestLib.dll";
+            //var lib_file_info = new FileInfo(lib_path);
+            //Assembly lib = Assembly.LoadFile(lib_file_info.FullName);
+            Assembly lib = Assembly.LoadFile(Path.GetFullPath(lib_path));
 
-            using (var db = new StudentsDb(options)) 
-                await InitializeDBAsync(db);
+            //Assembly entry_point = Assembly.GetEntryAssembly();
 
-            using (var db = new StudentsDb(options))
+            //var reports_asm = typeof(MailSender.Reports.Report).Assembly;
+
+            //lib.Location
+
+            Type program_type = typeof(Program);
+
+            var list_of_strings = new List<string>();
+            Type list_of_strings_type = list_of_strings.GetType();
+
+            //list_of_strings_type.GetProperties();
+            //list_of_strings_type.GetMethods();
+            //list_of_strings_type.GetConstructors();
+            //list_of_strings_type.GetFields();
+
+            //ConstructorInfo
+            //MethodInfo    *
+            //ParameterInfo
+            //PropertyInfo
+            //EventInfo
+            //FieldInfo     *
+
+            var printer_type = lib.GetType("TestLib.Printer");
+
+            var private_methods = printer_type.GetMethods(BindingFlags.Instance | BindingFlags.NonPublic);
+
+            //foreach (var method in printer_type.GetMethods())
+            //{
+            //    var return_type = method.ReturnType;
+            //    var parameters = method.GetParameters();
+
+            //    Console.WriteLine("{0} {1}({2})",
+            //        return_type.Name,
+            //        method.Name,
+            //        string.Join(", ", parameters.Select(p => $"{p.ParameterType.Name} {p.Name}")));
+            //}
+
+            object printer1 = Activator.CreateInstance(printer_type, ">>>");
+
+            var private_printer_type = lib.GetType("TestLib.InternalPrinter");
+            object printer2 = Activator.CreateInstance(private_printer_type);
+
+            var printer_ctor = printer_type.GetConstructor(new[] { typeof(string) });
+            var printer3 = printer_ctor.Invoke(new object[] { "<<<" });
+
+            var print_method_info = printer_type.GetMethod("Print"/*, BindingFlags.Instance | BindingFlags.NonPublic*/);
+
+            print_method_info.Invoke(printer1, new object[] { "Hello World!!!" });
+
+            var prefix_field_info = printer_type.GetField("_Prefix", BindingFlags.Instance | BindingFlags.NonPublic);
+
+            var field_value = (string)prefix_field_info.GetValue(printer1);
+            prefix_field_info.SetValue(printer1, "!!!---!!!");
+
+            //var print_delegate = (Action<string>) print_method_info.CreateDelegate(typeof(Action<string>), printer1);
+            var print_delegate = (Action<string>)Delegate.CreateDelegate(typeof(Action<string>), printer1, print_method_info);
+
+            for (var i = 0; i < 10; i++)
+                print_delegate($"Message {i}");
+
+            dynamic printer_dynamic = printer1;
+            printer_dynamic.Print("123123123");
+
+            var objects = new object[]
             {
-                var ivanov = await db.Students.FindAsync(99999);
+                "String value",
+                123,
+                3.14,
+                true,
+                'q',
+                //new List<string>()
+            };
 
-                var query = db.Students
-                   //.Include(s => s.Courses)
-                   .Where(s => s.Birthday >= new DateTime(2000, 1, 1) && s.Birthday < new DateTime(2001, 1, 1));
-                var students = await query.ToArrayAsync();
-
-                var first_student = students[0];
-                var courses = first_student.Courses;
-
-                var students_count = await query.CountAsync();
-                var students_count2 = await db.Students
-                   .CountAsync(s => s.Birthday >= new DateTime(2000, 1, 1) && s.Birthday < new DateTime(2001, 1, 1));
-
-                var students_last_names = await query.Select(s => s.LastName).Distinct().ToArrayAsync();
-
-                foreach (var student in students)
-                {
-                    Console.WriteLine("{0} {1} {2} - {3:d}", student.LastName, student.Name, student.Patronymic, student.Birthday);
-
-                    //db.Entry(student).Property(s => s.Courses).
-                }
-            }
+            ProcessValues(objects);
 
             Console.WriteLine("Завершено");
             Console.ReadLine();
         }
 
-        private static async Task InitializeDBAsync(StudentsDb db)
+        private static void ProcessValues(IEnumerable<object> values)
         {
-            //await db.Database.EnsureDeletedAsync();
-            //await db.Database.EnsureCreatedAsync();
-            await db.Database.MigrateAsync();
+            //foreach (var value in values)
+            //    switch (value)
+            //    {
+            //        case string val: ProcessValue(val); break;
+            //        case int val: ProcessValue(val); break;
+            //        case double val: ProcessValue(val); break;
+            //        case bool val: ProcessValue(val); break;
+            //    }
 
-            if (!await db.Courses.AnyAsync())
-            {
-                var courses = Enumerable.Range(1, 10)
-                   .Select(i => new Course {Name = $"Предмет {i}"})
-                   .ToArray();
-
-                await db.Courses.AddRangeAsync(courses);
-
-                await db.SaveChangesAsync();
-
-                if (!await db.Students.AnyAsync())
-                {
-                    var rnd = new Random();
-                    var students = Enumerable.Range(1, 1000)
-                       .Select(
-                            i => new Student
-                            {
-                                Name = $"Имя-{i}",
-                                LastName = $"Фамилия-{i}",
-                                Patronymic = $"Отчество-{i}",
-                                Birthday = DateTime.Now.Date.AddYears(-rnd.Next(17, 28)).AddDays(rnd.Next(365)),
-                                Courses = Enumerable.Range(0, rnd.Next(1, 8))
-                                   .Select(_ => courses[rnd.Next(courses.Length)])
-                                   .Distinct()
-                                   .ToArray()
-                            });
-                    await db.Students.AddRangeAsync(students);
-                    await db.SaveChangesAsync();
-                }
-            }
+            foreach (dynamic value in values)
+                ProcessValue(value);
         }
+
+        private static void ProcessValue(string value) => Console.WriteLine("string: {0}", value);
+        private static void ProcessValue(int value) => Console.WriteLine("int: {0}", value);
+        private static void ProcessValue(double value) => Console.WriteLine("double: {0}", value);
+        private static void ProcessValue(bool value) => Console.WriteLine("bool: {0}", value);
     }
 }

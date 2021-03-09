@@ -98,7 +98,7 @@
                         </ToolBar>
                         <ToolBar Band="2">
                             <contr:ItemsPanel Title="Сервера" 
-                                              ItemTemplate="{Binding Servers}"
+                                              ItemSource="{Binding Servers}"
                                               />
                         </ToolBar>
                     </ToolBarTray>
@@ -115,7 +115,7 @@
                 </DockPanel>
             </TabItem>
             <TabItem Header="Планировщик">
-                <Grid>
+                <Grid DataContext="{Binding SchedulerModel, Source={StaticResource Locator}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" MinWidth="120"/>
                         <ColumnDefinition/>
@@ -135,7 +135,8 @@
                                     </Style>
                                 </StackPanel.Resources>
                                 <Button Content="Запланировать"/>
-                                <Button Content="Отправить" Command="{Binding SendEmailCommand}"/>
+                                <!--<Button Content="Отправить" Command="{Binding MainWindowModel.SendEmailCommand, Source={StaticResource Locator}}"/>-->
+                                <Button Content="Отправить" Command="{Binding DataContext.SendEmailCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>
