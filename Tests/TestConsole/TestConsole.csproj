@@ -19,4 +19,10 @@
     <ProjectReference Include="..\..\MailSender.Reports\MailSender.Reports.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestLib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

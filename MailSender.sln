@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailSender.lib.Tests", "Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSender.Reports", "MailSender.Reports\MailSender.Reports.csproj", "{C35AC28A-AEEB-450F-9FAA-481D4C1C3FEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLib", "Tests\TestLib\TestLib.csproj", "{ED8B57C8-5407-4D4B-B5D2-BABE08F5D7C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{C35AC28A-AEEB-450F-9FAA-481D4C1C3FEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C35AC28A-AEEB-450F-9FAA-481D4C1C3FEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C35AC28A-AEEB-450F-9FAA-481D4C1C3FEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED8B57C8-5407-4D4B-B5D2-BABE08F5D7C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED8B57C8-5407-4D4B-B5D2-BABE08F5D7C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED8B57C8-5407-4D4B-B5D2-BABE08F5D7C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED8B57C8-5407-4D4B-B5D2-BABE08F5D7C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{8676479B-6CBA-4FDA-8674-23B6216A7B72} = {8CAD62E9-D5FE-457F-8EE3-FE3CF457F165}
 		{A2168D2E-4B7C-4990-8CD7-D29076A3195A} = {8CAD62E9-D5FE-457F-8EE3-FE3CF457F165}
 		{370F2C7D-2D04-4F8C-A043-EAD538F6B26F} = {8CAD62E9-D5FE-457F-8EE3-FE3CF457F165}
+		{ED8B57C8-5407-4D4B-B5D2-BABE08F5D7C2} = {8CAD62E9-D5FE-457F-8EE3-FE3CF457F165}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {813CF938-A2CC-489D-880D-1D9761755804}
