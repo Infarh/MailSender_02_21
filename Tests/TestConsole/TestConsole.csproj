@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\MailSender.Reports\MailSender.Reports.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-
+using MailSender.Reports;
 using Microsoft.EntityFrameworkCore;
 
 using TestConsole.Data;
@@ -11,41 +11,17 @@ namespace TestConsole
 {
     static class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
-            var options = new DbContextOptionsBuilder<StudentsDb>()
-               .UseLazyLoadingProxies()
-               .UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Students.DB")
-               .Options;
-
-            using (var db = new StudentsDb(options)) 
-                await InitializeDBAsync(db);
-
-            using (var db = new StudentsDb(options))
+            var report = new Report
             {
-                var ivanov = await db.Students.FindAsync(99999);
+                StrValue1 = "Hello World!",
+                StrValue2 = "Всем привет!!!!111",
+                IntValue1 = 13,
+                IntValue2 = 42
+            };
 
-                var query = db.Students
-                   //.Include(s => s.Courses)
-                   .Where(s => s.Birthday >= new DateTime(2000, 1, 1) && s.Birthday < new DateTime(2001, 1, 1));
-                var students = await query.ToArrayAsync();
-
-                var first_student = students[0];
-                var courses = first_student.Courses;
-
-                var students_count = await query.CountAsync();
-                var students_count2 = await db.Students
-                   .CountAsync(s => s.Birthday >= new DateTime(2000, 1, 1) && s.Birthday < new DateTime(2001, 1, 1));
-
-                var students_last_names = await query.Select(s => s.LastName).Distinct().ToArrayAsync();
-
-                foreach (var student in students)
-                {
-                    Console.WriteLine("{0} {1} {2} - {3:d}", student.LastName, student.Name, student.Patronymic, student.Birthday);
-
-                    //db.Entry(student).Property(s => s.Courses).
-                }
-            }
+            report.CreatePackage("report.docx");
 
             Console.WriteLine("Завершено");
             Console.ReadLine();
